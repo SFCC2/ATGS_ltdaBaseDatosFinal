@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+
+    
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:annotation-driven />
+    
+    
+    <!--
+    Most controllers will use the ControllerClassNameHandlerMapping above, but
+    for the index controller we are using ParameterizableViewController, so we must
+    define an explicit mapping for it.
+    -->
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="index.html">indexController</prop>
+                <prop key="login.html">loginController</prop>
+                <prop key="viewpersons.html">getPersonsController</prop>
+                
+                <prop key="agregarPersona.html">aPersonsController</prop>
+                <prop key="agregarEmpresa.html">agregarEmpresaController</prop>
+                <prop key="agregarArchivos.html">agregarArchivoaController</prop>
+                <prop key="agregarProyecto.html">agregarProyectosController</prop>
+                <prop key="agregarInventario.html">agregarInventariosController</prop>
+                
+                <prop key="editarArchivo.html">editarArchivosController</prop> 
+                <prop key="editarEmpresa.html">editarEmpresasController</prop>                  
+                <prop key="editarInvetario.html">editarInventariosController</prop> 
+                <prop key="editarPersona.html">editarPersonassController</prop>                 
+                <prop key="editarProyecto.html">editarProyectossController</prop> 
+                
+                <prop key="eliminarArchivo.html">eliminarArchivosController</prop>  
+                <prop key="eliminarEmpresa.html">eliminarEmpresasController</prop>   
+                <prop key="eliminarInventario.html">eliminarInventariosController</prop>
+                <prop key="eliminarProyecto.html">eliminarProyectosController</prop> 
+                 <prop key="eliminarPersona.html">eliminarPersonaController</prop>  
+                
+                <prop key="listarArchivo.html">listarArchivosController</prop> 
+                <prop key="listarEmpresa.html">listarEmpresasController</prop>                  
+                <prop key="listarInventario.html">listarInventariosController</prop> 
+                <prop key="listarPersona.html">listarPersonassController</prop>                 
+                <prop key="listarProyecto.html">listarProyectossController</prop> 
+                
+                <prop key="filtrarArchivo.html">filtrarArchivosController</prop> 
+                <prop key="filtrarEmpresa.html">filtrarEmpresasController</prop>                  
+                <prop key="filtrarInvetario.html">filtrarInventariosController</prop> 
+                <prop key="filtrarPersona.html">filtrarPersonassController</prop>                 
+                <prop key="filtrarProyecto.html">filtrarProyectossController</prop> 
+                
+                <prop key="Archivo.html">ArchivosController</prop> 
+                <prop key="Empresa.html">EmpresaController</prop> 
+                <prop key="Inventario.html">InventarioController</prop> 
+                <prop key="Persona.html">PersonaController</prop> 
+                <prop key="Proyecto.html">ProyectoController</prop> 
+                <prop key="Principal.html">PrincipalController</prop>  
+                
+                <!-- UN ALTERNATIVO EXPERIMENTAL -->
+                <prop key="Archivo.html">ArchivoDAOcontroller</prop> 
+                <prop key="Empresa.html">EmpresaDAOcontroller</prop> 
+                <prop key="Inventario.html">InventarioDAOcontroller</prop> 
+                <prop key="Persona.html">PersonaDAOcontroller</prop> 
+                <prop key="Proyecto.html">EmpresaDAOcontroller</prop> 
+                <prop key="Principal.html">ProyectoDAOcontroller</prop>        
+                             
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" />
+
+    <!--
+    The index controller.
+    -->
+    <bean name="indexController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index" />
+    
+   
+    <!-- Controlador para manejar el recurso 'login.html' -->
+    <bean name="loginController" class="controllers.LoginController"/>
+    <!-- Controlador para manejar el recurso 'viewpersons.html' -->
+    
+    <bean name="getPersonsController" class="controllers.GetPersonsController"/>    
+    <!-- Controlador para manejar el recurso 'agregarPersona.html' -->
+    <bean name="aPersonsController" class="controllers.AddPersonsController"/> 
+    <!-- contorlado para manejar el recurso 'agregarEmpresa.html' -->
+    <bean name="agregarEmpresaController" class="controllers.AddEmpresaController"/>
+    <!-- contorlado para manejar el recurso 'agregarArchivo.html' -->
+    <bean name="agregarArchivoaController" class="controllers.AddArchivoController"/>    
+    <!-- contorlado para manejar el recurso 'agregarProyecto.html' -->
+    <bean name="agregarProyectosController" class="controllers.AddProyectoController"/>    
+    <!-- contorlado para manejar el recurso 'agregarPInventario.html' -->
+    <bean name="agregarInventariosController" class="controllers.AddInventarioController"/>  
+      
+    <!-- contorlado para manejar el recurso 'editarArchivos.html' -->
+    <bean name="editarArchivosController" class="controllers.UploadArchivoController"/>     
+    <!-- contorlado para manejar el recurso 'editarEmpresa.html' -->
+    <bean name="editarEmpresasController" class="controllers.UploadEmpresaController"/>         
+    <!-- contorlado para manejar el recurso 'editarInvetario.html' -->
+    <bean name="editarInventariosController" class="controllers.UploadInventarioController"/>     
+    <!-- contorlado para manejar el recurso 'editarPersona.html' -->
+    <bean name="editarPersonassController" class="controllers.UploadPersonaController"/> 
+    <!-- contorlado para manejar el recurso 'editarProyecto.html' -->
+    <bean name="editarProyectossController" class="controllers.UploadProyectoController"/>   
+    
+      
+
+    <!-- contorlado para manejar el recurso 'eliminarArchivos.html' -->
+    <bean name="eliminarArchivosController" class="controllers.DeleteArchivoController"/>    
+    <!-- contorlado para manejar el recurso 'eliminarEmpresa.html' --> 
+    <bean name="eliminarEmpresasController" class="controllers.DeleteEmpresaController"/>         
+    <!-- contorlado para manejar el recurso 'eliminarInventario.html' --> 
+    <bean name="eliminarInventariosController" class="controllers.DeleteInventarioController"/>          
+    <!-- contorlado para manejar el recurso 'eliminarProyecto.html' --> 
+    <bean name="eliminarProyectosController" class="controllers.DeleteProyectoController"/> 
+    <!-- contorlado para manejar el recurso 'eliminarPersona.html' -->
+    <bean name="eliminarPersonaController" class="controllers.DeletePersonaController"/> 
+    
+    
+    
+    
+    <!-- contorlado para manejar el recurso 'listarArchivos.html' -->
+    <bean name="listarArchivosController" class="controllers.ChecklistArchivoController"/>     
+    <!-- contorlado para manejar el recurso 'listarEmpresa.html' -->
+    <bean name="listarEmpresasController" class="controllers.ChecklistEmpresaController"/>         
+    <!-- contorlado para manejar el recurso 'listarInvetario.html' -->
+    <bean name="listarInventariosController" class="controllers.ChecklistInventarioController"/>     
+    <!-- contorlado para manejar el recurso 'listarPersona.html' -->
+    <bean name="listarPersonassController" class="controllers.ChecklistPersonaController"/> 
+    <!-- contorlado para manejar el recurso 'listarProyecto.html' -->
+    <bean name="listarProyectossController" class="controllers.ChecklistProyectoController"/>  
+    
+    <!-- contorlado para manejar el recurso 'filtrarArchivos.html' -->
+    <bean name="filtrarArchivosController" class="controllers.FiltrateArchivoController"/>     
+    <!-- contorlado para manejar el recurso 'filtrarEmpresa.html' -->
+    <bean name="filtrarEmpresasController" class="controllers.FiltrateEmpresaController"/>         
+    <!-- contorlado para manejar el recurso 'filtrarInvetario.html' -->
+    <bean name="filtrarInventariosController" class="controllers.FiltrateInventarioController"/>     
+    <!-- contorlado para manejar el recurso 'filtrarPersona.html' -->
+    <bean name="filtrarPersonassController" class="controllers.FiltratePersonaController"/> 
+    <!-- contorlado para manejar el recurso 'filtrarProyecto.html' -->
+    <bean name="filtrarProyectossController" class="controllers.FiltrateProyectoController"/>  
+    
+    <!-- contorlado para manejar el recurso 'Archivo.html' -->
+    <bean name="ArchivosController" class="controllers.ArchivoController"/>  
+    <!-- contorlado para manejar el recurso 'Empresa.html' -->
+    <bean name="EmpresaController" class="controllers.EmpresaController"/>  
+    <!-- contorlado para manejar el recurso 'Inventario.html' -->
+    <bean name="InventarioController" class="controllers.InventarioController"/>  
+    <!-- contorlado para manejar el recurso 'Archivo.html' -->
+    <bean name="PersonaController" class="controllers.PersonaController"/>     
+    <!-- contorlado para manejar el recurso 'Archivo.html' -->
+    <bean name="ProyectoController" class="controllers.ProyectoController"/>   
+    <!-- contorlado para manejar el recurso 'Archivo.html' -->
+    <bean name="PrincipalController" class="controllers.PrincipalController"/>   
+    
+    
+    <!-- UN ALTERNATIVO EXPERIMENTAL     -->
+    <bean name="ArchivoDAOcontroller" class="controllers.DAOarchivoController"/>  
+    <bean name="EmpresaDAOcontroller" class="controllers.DAOempresaController"/>  
+    <bean name="InventarioDAOcontroller" class="controllers.DAOinventarioController"/>  
+    <bean name="PersonaDAOcontroller" class="controllers.DAOpersonController"/>
+    <bean name="ProyectoDAOcontroller" class="controllers.DAOproyectoController"/>    
+</beans>
